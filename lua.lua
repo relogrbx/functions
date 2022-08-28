@@ -218,7 +218,7 @@ do
 		}, {
 			utility:Create("ImageLabel", {
 				Name = "Main",
-				BackgroundTransparency = 1,
+				BackgroundTransparency = 0,
 				Position = UDim2.new(0.25, 0, 0.052435593, 0),
 				Size = UDim2.new(0, 511, 0, 428),
 				Image = "rbxassetid://4641149554",
@@ -252,7 +252,7 @@ do
 					utility:Create("ScrollingFrame", {
 						Name = "Pages_Container",
 						Active = true,
-						BackgroundTransparency = 0,
+						BackgroundTransparency = 1,
 						Position = UDim2.new(0, 0, 0, 10),
 						Size = UDim2.new(1, 0, 1, -20),
 						CanvasSize = UDim2.new(0, 0, 0, 314),
@@ -266,7 +266,7 @@ do
 				}),
 				utility:Create("ImageLabel", {
 					Name = "TopBar",
-					BackgroundTransparency = 1,
+					BackgroundTransparency = 0,
 					ClipsDescendants = true,
 					Size = UDim2.new(1, 0, 0, 38),
 					ZIndex = 5,

@@ -1,0 +1,53 @@
+local coreGui = game:GetService("CoreGui")
+local tweenService = game:GetService("TweenService");
+
+function createTween(Object,setup,settings)
+	local style = (settings.Style or Enum.EasingStyle.Sine);
+	local direction = (settings.Direction or Enum.EasingDirection.InOut);
+	local length = (settings.TIME or 1);
+	local repeatcount = (settings.repeatLimit or 0);
+	local reverse = (settings.IsReversed or false);
+	local dt = (settings.delay or 0);
+	
+	local tween = TweenInfo.new(
+		length, style, direction, repeatcount, reverse, dt
+	);
+	
+	local tweenService = game:GetService("TweenService");
+	local Anim = tweenService:Create(Object,tween,setup);
+	Anim:Play();
+	return Anim;
+end;
+
+function RUN_FUNCTION(name, extension, configOpt)
+    local settings = configOpt;
+    local PATH_URL = settings.URL or nil;
+    local GAME_NAME = "";
+    
+    local success = pcall(function()
+        game:HttpGet(PATH_URL)
+    end);
+
+     local DecodedTable;
+     if (success) then
+        if extension == "lua" then 
+            DecodedTable = loadstring(game:HttpGet(PATH_URL))()
+        elseif extension == "json" then
+            DecodedTable = game:GetService("HttpService"):JSONDecode(game:HttpGet(PATH_URL))
+        end
+        
+        settings.Executable = ""
+        for i,v in pairs(DecodedTable) do
+            if (game.PlaceId == tonumber(i) and v.name and v.Working) then
+                local connection = pcall(function() 
+                    settings.Executable = game:HttpGet(v.Script) 
+                end);
+                
+                GAME_NAME = v.name
+            end
+        end
+    end      
+        loadstring(settings.Executable)()
+    end)
+end
+return RUN_FUNCTION;
